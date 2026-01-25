@@ -1,0 +1,50 @@
+.body {
+    width: 100%;
+}
+
+.illustration_img_wrapper {
+    position: relative;
+    margin-block: 1.5rem;
+    width: 100%;
+    height: 22rem;
+}
+
+.illustration {
+    position: absolute;
+    max-width: 32rem;
+}
+
+
+
+/* Introduction */
+.introduction {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.introduction__title {
+    font-size: 2.5rem;
+    color: var(--gray-950);
+    line-height: 1.2;
+}
+
+.introduction__description {
+    font-size: 1.125rem;
+    color: var(--gray-500);
+}
+
+.getStarted_BTN {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--white);
+    border: none;
+    border-radius: 2rem;
+    padding: 0.75rem 2.25rem;
+    margin-block: 1rem;
+    width: max-content;
+    background-color: var(--blue-400);
+}
+/* Introduction */
