@@ -79,6 +79,7 @@ a {
   --gray-900: hsl(255, 11%, 22%);
   --gray-950: hsl(260, 8%, 14%);
   --white: hsl(0, 0%, 100%);
+  --main-bg: hsl(230, 25%, 95%);
 
   /* TYPOGRAPHY */
   --font-weight-medium: 500;
