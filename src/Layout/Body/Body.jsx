@@ -4,6 +4,7 @@ import brand_recognition_icon from '/src/assets/icons/icon-brand-recognition.svg
 import detailed_records_icon from '/src/assets/icons/icon-detailed-records.svg';
 import fully_customizable_icon from '/src/assets/icons/icon-fully-customizable.svg';
 import promotion_bg_mobile from '/src/assets/icons/bg-boost-mobile.svg';
+import close_icon from '/src/assets/icons/close.png';
 import LinkShortener from '../../Features/LinkShortener';
 
 const STATS_INFO = [
@@ -27,7 +28,9 @@ const STATS_INFO = [
     }
 ];
 
-function Body() {
+function Body({ props }) {
+
+    const { closeMenu, dialogRef } = props;
 
     return(
         <>
@@ -51,9 +54,13 @@ function Body() {
                     </p>
                     <button className={styles.getStarted_BTN}>Get Started</button>
                 </article>
-
+                
+            {/* lower half bg */}
+            <div className={styles.lowerBG}>
                 {/* Link Input */}
-                <LinkShortener />
+                <div className={styles.input_wrapper}>
+                    <LinkShortener />
+                </div>
 
                 {/* Additional Info */}
                 <div className={styles.extraInfo}>
@@ -80,9 +87,7 @@ function Body() {
                         );
                     })}
                 </section>
-
-                {/* lower half bg */}
-            <div className={styles.lowerBG}></div>
+            </div>
 
             </section>
 
@@ -92,6 +97,30 @@ function Body() {
                 <h2 className={styles.promotion}>Boost your links today</h2>
                 <button className={styles.getStarted_BTN}>Get Started</button>
             </div>
+
+            {/* Overlay menu */}
+            <dialog className={styles.overlay_menu} ref={dialogRef}>
+                <img 
+                    className={styles.close_icon} 
+                    src={close_icon} 
+                    alt="close" 
+                    onClick={closeMenu}
+                />
+                <nav className={styles.menu_nav}>
+                    <ul>
+                        <li className={styles.nav_item}>Features</li>
+                        <li className={styles.nav_item}>Pricing</li>
+                        <li className={styles.nav_item}>Resources</li>
+                    </ul>
+                </nav>
+
+                <hr className={styles.nav_hr}/>
+
+                <div className={styles.register_account}>
+                    <button onClick={closeMenu}>Login</button>
+                    <button onClick={closeMenu}>Sign Up</button>
+                </div>
+            </dialog>
         </>
     );
 }
