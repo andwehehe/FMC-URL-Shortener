@@ -250,4 +250,8 @@
     right: 5%;
     width: 1rem;
 }
+
+.close_icon:hover {
+    background-color: var(--gray-500);
+}
 /* Overlay Menu */
