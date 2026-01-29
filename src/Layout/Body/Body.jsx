@@ -36,23 +36,26 @@ function Body({ props }) {
         <>
             <section className={styles.body}>
 
-                {/* illustration img */}
-                <div className={styles.illustration_img_wrapper}>
-                    <img
-                        className={styles.illustration}
-                        src={illustration_working} 
-                        alt="illustration working" 
-                    />
-                </div>
-
                 {/* Introduction */}
                 <article className={styles.introduction}>
-                    <h1 className={styles.introduction__title}>More than just shorter links</h1>
-                    <p className={styles.introduction__description}>
-                        Build your brand's recognition and get detailed
-                        insights on how your links are performing.
-                    </p>
-                    <button className={styles.getStarted_BTN}>Get Started</button>
+                    
+                    {/* illustration img */}
+                    <div className={styles.illustration_img_wrapper}>
+                        <img
+                            className={styles.illustration}
+                            src={illustration_working} 
+                            alt="illustration working" 
+                        />
+                    </div>
+
+                    <article className={styles.introduction__component}>
+                        <h1 className={styles.introduction__title}>More than just shorter links</h1>
+                        <p className={styles.introduction__description}>
+                            Build your brand's recognition and get detailed
+                            insights on how your links are performing.
+                        </p>
+                        <button className={styles.getStarted_BTN}>Get Started</button>
+                    </article>
                 </article>
                 
             {/* lower half bg */}

@@ -9,6 +9,12 @@
     background-color: var(--gray-950);
 }
 
+.footer_container_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
 .footerInfo_heading {
     font-weight: var(--font-weight-bold);
     color: var(--white);
@@ -28,4 +34,11 @@
 .socials_container {
     display: flex;
     gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .footer_container_wrapper {
+        flex-direction: row;
+        gap: 5rem;
+    }
 }

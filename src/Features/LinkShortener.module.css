@@ -8,6 +8,7 @@
     margin-block-end: 5rem;
     background-color: var(--purple-950);
     overflow: hidden;
+    width: 100%;
 }
 
 .input_bg_decor {
@@ -22,6 +23,7 @@
     border-radius: 0.25rem;
     border: solid transparent 0.15rem;
     z-index: 1;
+    width: 100%;
 }
 
 .shortener_BTN {
@@ -32,4 +34,15 @@
 
 .link_input:focus {
     outline: teal 0.15rem solid;
+}
+
+@media (min-width: 768px) {
+    .linkInput_wrapper {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .shortener_BTN {
+        max-width: 7rem;
+    }
 }
