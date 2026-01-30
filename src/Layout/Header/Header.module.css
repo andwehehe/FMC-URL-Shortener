@@ -2,7 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 1.5rem 0 1.5rem;
+    padding-block-start: 2rem;
+    padding-inline: 1.5rem;
     width: 100%;
     max-width: 600px;
 }
@@ -78,5 +79,13 @@
 
     .menu_mobile {
         display: none;
+    }
+}
+
+@media (min-width: 953px) {
+    .header {
+        padding-block-end: 2rem;
+        padding-inline: clamp(2rem, 8vw, 10rem);
+        max-width: 1920px;
     }
 }

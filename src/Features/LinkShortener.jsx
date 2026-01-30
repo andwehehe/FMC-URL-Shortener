@@ -1,13 +1,26 @@
 import styles from './LinkShortener.module.css';
-import bg_shorten_mobile from '../assets/icons/bg-shorten-mobile.svg';
+import bg_shorten_mobile from '/src/assets/icons/bg-shorten-mobile.svg';
+import bg_shorten_desktop from '/src/assets/icons/bg-shorten-desktop.svg';
+import { useState, useEffect } from 'react';
 
 function LinkShortener() {
+
+    const [ isMobile, setIsMobile ] = useState(window.innerWidth < 953);
+
+    const handleResize = () => {
+        setIsMobile(window.innerWidth < 953);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return() => window.removeEventListener('resize', handleResize);
+    }, [])
 
     return(
         <div className={styles.linkInput_wrapper}>
             <img 
                 className={styles.input_bg_decor}
-                src={bg_shorten_mobile} 
+                src={isMobile ? bg_shorten_mobile : bg_shorten_desktop} 
                 alt="background style" 
             />
 
