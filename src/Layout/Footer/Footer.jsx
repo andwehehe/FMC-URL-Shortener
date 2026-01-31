@@ -58,7 +58,7 @@ function Footer() {
     return(
         <footer className={styles.footer}>
             {/* Logo */}
-            <img src={logo_white} alt="logo" />
+            <img className={styles.footer_logo} src={logo_white} alt="logo" />
 
             <div className={styles.footer_container_wrapper}>
                 {/* Footer Info */}

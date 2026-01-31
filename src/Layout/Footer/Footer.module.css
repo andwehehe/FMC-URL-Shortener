@@ -42,3 +42,22 @@
         gap: 5rem;
     }
 }
+
+@media (min-width: 953px)  {
+    .footer {
+        text-align: start;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-inline: clamp(2rem, 8vw, 10rem);
+    }
+
+    .footer_logo {
+        align-self: flex-start;
+        margin-block: 1rem;
+    }
+
+    .socials_container {
+        align-self: flex-start;
+        margin-block: 1rem;
+    }
+}
