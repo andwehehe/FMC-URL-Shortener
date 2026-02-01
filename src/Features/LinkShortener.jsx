@@ -1,20 +1,8 @@
 import styles from './LinkShortener.module.css';
 import bg_shorten_mobile from '/src/assets/icons/bg-shorten-mobile.svg';
 import bg_shorten_desktop from '/src/assets/icons/bg-shorten-desktop.svg';
-import { useState, useEffect } from 'react';
 
-function LinkShortener() {
-
-    const [ isMobile, setIsMobile ] = useState(window.innerWidth < 953);
-
-    const handleResize = () => {
-        setIsMobile(window.innerWidth < 953);
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return() => window.removeEventListener('resize', handleResize);
-    }, [])
+function LinkShortener({ isMobile }) {
 
     return(
         <div className={styles.linkInput_wrapper}>

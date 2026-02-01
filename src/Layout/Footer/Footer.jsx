@@ -57,35 +57,38 @@ function Footer() {
 
     return(
         <footer className={styles.footer}>
-            {/* Logo */}
-            <img className={styles.footer_logo} src={logo_white} alt="logo" />
+            
+            <section className={styles.footer_main}>
+                {/* Logo */}
+                <img className={styles.footer_logo} src={logo_white} alt="logo" />
 
-            <div className={styles.footer_container_wrapper}>
-                {/* Footer Info */}
-                {FOOTER_INFO.map(({ footerHeading, items }) => {
-                    return(
-                        <div className={styles.footerInfo_container} key={footerHeading}>
-                            <p className={styles.footerInfo_heading}>{footerHeading}</p>
-                            <ul className={styles.footerInfo_list}>
-                                {items.map((item) => {
-                                    return(
-                                        <li className={styles.footerInfo_item} key={item}>{item}</li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                    );
-                })}
-            </div>
+                <div className={styles.footer_container_wrapper}>
+                    {/* Footer Info */}
+                    {FOOTER_INFO.map(({ footerHeading, items }) => {
+                        return(
+                            <div className={styles.footerInfo_container} key={footerHeading}>
+                                <p className={styles.footerInfo_heading}>{footerHeading}</p>
+                                <ul className={styles.footerInfo_list}>
+                                    {items.map((item) => {
+                                        return(
+                                            <li className={styles.footerInfo_item} key={item}>{item}</li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        );
+                    })}
+                </div>
 
-            {/* Socials */}
-            <div className={styles.socials_container}>
-                {SOCIALS.map(({ icon, id }) => {
-                    return(
-                        <img src={icon} alt="social" className={styles.socials} key={id} />
-                    );
-                })}
-            </div>
+                {/* Socials */}
+                <div className={styles.socials_container}>
+                    {SOCIALS.map(({ icon, id }) => {
+                        return(
+                            <img src={icon} alt="social" className={styles.socials} key={id} />
+                        );
+                    })}
+                </div>
+            </section>
         </footer>
     );
 }

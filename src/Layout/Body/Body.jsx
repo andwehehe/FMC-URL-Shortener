@@ -4,33 +4,45 @@ import brand_recognition_icon from '/src/assets/icons/icon-brand-recognition.svg
 import detailed_records_icon from '/src/assets/icons/icon-detailed-records.svg';
 import fully_customizable_icon from '/src/assets/icons/icon-fully-customizable.svg';
 import promotion_bg_mobile from '/src/assets/icons/bg-boost-mobile.svg';
+import promotion_bg_desktop from '/src/assets/icons/bg-boost-desktop.svg';
 import close_icon from '/src/assets/icons/close.png';
 import LinkShortener from '../../Features/LinkShortener';
-
-const STATS_INFO = [
-    {
-        img: brand_recognition_icon,
-        title: "Brand Recognition",
-        description: "Boost you brand recognition with each click. Generic links don't mean a thing. Branded links help instil confidence in your content.",
-        key: "stats-info-1"
-    },
-    {
-        img: detailed_records_icon,
-        title: "Detailed Records",
-        description: "Gain insights into who is clicking your links. Knowing when and where people engage with your content helps inform better decisions.",
-        key: "stats-info-2"
-    },
-    {
-        img: fully_customizable_icon,
-        title: "Fully Customizable",
-        description: "Improve brand awareness and content discoverability through customizable links, supercharging audience engagement.",
-        key: "stats-info-3"
-    }
-];
+import { useEffect, useState } from 'react';
 
 function Body({ props }) {
 
     const { closeMenu, dialogRef } = props;
+    const [ isMobile, setIsMobile ] = useState(window.innerWidth < 953);
+
+    const handleResize = () => {
+        setIsMobile(window.innerWidth < 953);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return() => window.removeEventListener('resize', handleResize);
+    }, [])
+
+    const STATS_INFO = [
+        {
+            img: brand_recognition_icon,
+            title: "Brand Recognition",
+            description: "Boost you brand recognition with each click. Generic links don't mean a thing. Branded links help instil confidence in your content.",
+            key: "stats-info-1",
+        },
+        {
+            img: detailed_records_icon,
+            title: "Detailed Records",
+            description: "Gain insights into who is clicking your links. Knowing when and where people engage with your content helps inform better decisions.",
+            key: "stats-info-2",
+        },
+        {
+            img: fully_customizable_icon,
+            title: "Fully Customizable",
+            description: "Improve brand awareness and content discoverability through customizable links, supercharging audience engagement.",
+            key: "stats-info-3",
+        }
+    ];
 
     return(
         <>
@@ -62,7 +74,7 @@ function Body({ props }) {
             <div className={styles.lowerBG}>
                 {/* Link Input */}
                 <div className={styles.input_wrapper}>
-                    <LinkShortener />
+                    <LinkShortener isMobile={isMobile}/>
                 </div>
 
                 {/* Additional Info */}
@@ -80,7 +92,10 @@ function Body({ props }) {
                     <hr className={styles.connector_HR} />
                     {STATS_INFO.map(({ img, title, description, key }) => {
                         return(
-                            <article className={styles.additionalInfo__container} key={key}>
+                            <article 
+                                className={styles.additionalInfo__container} 
+                                key={key} 
+                            >
                                 <div className={styles.additionalInfo__img_container}>
                                     <img src={img} alt="title" />
                                 </div>
@@ -96,7 +111,7 @@ function Body({ props }) {
 
             {/* Promotion */}
             <div className={styles.promotion_container}>
-                <img className={styles.promotion_BG} src={promotion_bg_mobile} alt="background style" />
+                <img className={styles.promotion_BG} src={isMobile ? promotion_bg_mobile : promotion_bg_desktop} alt="background style" />
                 <h2 className={styles.promotion}>Boost your links today</h2>
                 <button className={styles.getStarted_BTN}>Get Started</button>
             </div>
