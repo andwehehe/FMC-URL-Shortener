@@ -2,7 +2,9 @@ import styles from './LinkShortener.module.css';
 import bg_shorten_mobile from '/src/assets/icons/bg-shorten-mobile.svg';
 import bg_shorten_desktop from '/src/assets/icons/bg-shorten-desktop.svg';
 
-function LinkShortener({ isMobile }) {
+function LinkShortener({ props }) {
+
+    const { isMobile, longUrl, loading, shortenUrl, setLongUrl } = props;
 
     return(
         <div className={styles.linkInput_wrapper}>
@@ -17,11 +19,14 @@ function LinkShortener({ isMobile }) {
                 type="url" 
                 name='url-input'
                 placeholder='Shorten a link here...' 
+                value={longUrl}
+                onChange={(e) => setLongUrl(e.target.value)}
             />
 
-            <button className={styles.shortener_BTN} type='submit'>
-                Shorten It!
+            <button className={styles.shortener_BTN} type='submit' onClick={shortenUrl} disabled={loading || !longUrl}>
+                {loading ? "Shortening..." : "Shorten It!"}
             </button>
+
         </div>
     );
 }

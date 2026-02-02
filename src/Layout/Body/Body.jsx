@@ -11,6 +11,43 @@ import { useEffect, useState } from 'react';
 
 function Body({ props }) {
 
+    const [ longUrl, setLongUrl ] = useState("");
+    const [ shortUrl, setShortUrl ] = useState("");
+    const [ loading, setLoading ] = useState(false);
+    const [ error, setError ] = useState("");
+
+    const shortenUrl = async () => {
+        setShortUrl("");
+        setLoading(false);
+        setError("");
+
+        try {
+            const response = await fetch('https://spoo.me/', {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                url: longUrl
+                })
+            })
+
+            if(!response.ok) {
+                throw new Error("Failed to shorten URL");
+            }
+
+            const data = await response.json();
+            setShortUrl(data.short_url);
+
+        } catch(e) {
+            setError("Something went wrong. Please try again later.")
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const { closeMenu, dialogRef } = props;
     const [ isMobile, setIsMobile ] = useState(window.innerWidth < 953);
 
@@ -74,8 +111,19 @@ function Body({ props }) {
             <div className={styles.lowerBG}>
                 {/* Link Input */}
                 <div className={styles.input_wrapper}>
-                    <LinkShortener isMobile={isMobile}/>
+                    <LinkShortener 
+                        props={{ isMobile, longUrl, shortUrl, loading, error, shortenUrl, setLongUrl }}
+                    />
                 </div>
+
+                <section className={styles.shortened_url}>
+                    <p className={styles.long_url}>{longUrl}</p>
+                    <p className={styles.short_url}>{shortUrl}</p>
+                    <button 
+                        className={styles.copy_BTN} 
+                        onClick={() => navigator.clipboard.writeText(shortUrl)}
+                    >Copy</button>
+                </section>
 
                 {/* Additional Info */}
                 <div className={styles.extraInfo}>
