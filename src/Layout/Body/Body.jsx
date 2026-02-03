@@ -16,7 +16,11 @@ function Body({ props }) {
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState("");
 
+    const [ shortenedUrl, setShortenedUrl ] = useState([]);
+
     const shortenUrl = async () => {
+        // if(shortenedUrl[shortenedUrl.length-1].longUrl === longUrl) return;
+
         setShortUrl("");
         setLoading(false);
         setError("");
@@ -29,7 +33,7 @@ function Body({ props }) {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
                 body: new URLSearchParams({
-                url: longUrl
+                    url: longUrl
                 })
             })
 
@@ -40,6 +44,15 @@ function Body({ props }) {
             const data = await response.json();
             setShortUrl(data.short_url);
 
+            // if(shortenedUrl.length > 0 && shortenedUrl[shortenedUrl.length-2].longUrl === longUrl)
+            setShortenedUrl(prev => {
+                let links = [...prev, {longUrl: longUrl, shortUrl: data.short_url}];
+                if(links.length > 3) {
+                    links = links.slice(1);
+                }
+                return links;
+            });
+
         } catch(e) {
             setError("Something went wrong. Please try again later.")
             console.error(e);
@@ -47,6 +60,16 @@ function Body({ props }) {
             setLoading(false);
         }
     };
+
+    const [ isCopied, setIsCopied ] = useState(false);
+    const copyLink = () => {
+        navigator.clipboard.writeText(shortUrl);
+        setIsCopied(true);
+
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 5000)
+    }
 
     const { closeMenu, dialogRef } = props;
     const [ isMobile, setIsMobile ] = useState(window.innerWidth < 953);
@@ -112,17 +135,40 @@ function Body({ props }) {
                 {/* Link Input */}
                 <div className={styles.input_wrapper}>
                     <LinkShortener 
-                        props={{ isMobile, longUrl, shortUrl, loading, error, shortenUrl, setLongUrl }}
+                        props={{ isMobile, longUrl, shortUrl, loading, error, shortenUrl, setLongUrl, shortenedUrl }}
                     />
                 </div>
 
-                <section className={styles.shortened_url}>
-                    <p className={styles.long_url}>{longUrl}</p>
-                    <p className={styles.short_url}>{shortUrl}</p>
-                    <button 
-                        className={styles.copy_BTN} 
-                        onClick={() => navigator.clipboard.writeText(shortUrl)}
-                    >Copy</button>
+                {/* <section className={styles.shortened_url_wrapper}>
+                    <article className={styles.shortened_url}>
+                        <p className={styles.long_url}>{longUrl}</p>
+                        <div className={styles.output_copy_wrapper}>
+                            <p className={styles.short_url}>{shortUrl}</p>
+                            <button 
+                                className={styles.copy_BTN} 
+                                onClick={copyLink}
+                                style={{ backgroundColor: isCopied && "hsl(257, 27%, 26%)" }}
+                            >{isCopied ? "Copied!" : "Copy"}</button>
+                        </div>
+                    </article>
+                </section> */}
+
+                <section className={styles.shortened_url_wrapper}>
+                    {shortenedUrl.map(({ longUrl, shortUrl }) => {
+                        return(
+                            <article className={styles.shortened_url} key={shortUrl}>
+                                <p className={styles.long_url}>{longUrl}</p>
+                                <div className={styles.output_copy_wrapper}>
+                                    <p className={styles.short_url}>{shortUrl}</p>
+                                    <button 
+                                        className={styles.copy_BTN} 
+                                        onClick={copyLink}
+                                        style={{ backgroundColor: isCopied && "hsl(257, 27%, 26%)" }}
+                                    >{isCopied ? "Copied!" : "Copy"}</button>
+                                </div>
+                            </article>
+                        );
+                    })}
                 </section>
 
                 {/* Additional Info */}

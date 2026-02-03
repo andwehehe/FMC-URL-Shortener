@@ -5,7 +5,7 @@
     gap: 1rem;
     border-radius: 0.5rem;
     padding: 2rem;
-    margin-block-end: 5rem;
+    margin-block-end: 1.5rem;
     margin-inline: auto;
     background-color: var(--purple-950);
     overflow: hidden;
@@ -32,6 +32,7 @@
     font-weight: var(--font-weight-bold);
     color: var(--white);
     background-color: var(--blue-400);
+    cursor: pointer;
 }
 
 .link_input {
