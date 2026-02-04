@@ -81,6 +81,7 @@
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
+    max-width: 40rem;
 }
 
 .shortened_url {
@@ -90,8 +91,7 @@
     border-radius: 1rem;
     box-shadow: 0 0 1rem var(--gray-400);
     background-color: var(white);
-    width: 100%;
-    max-width: 40rem;
+    width: 100%;    
 }
 
 .long_url {
@@ -431,6 +431,10 @@
 
     .promotion {
         padding-block-start: 2rem;
+    }
+
+    .shortened_url_wrapper {
+        max-width: none;
     }
 
     .shortened_url {

@@ -4,12 +4,10 @@ import bg_shorten_desktop from '/src/assets/icons/bg-shorten-desktop.svg';
 
 function LinkShortener({ props }) {
 
-    const { isMobile, longUrl, loading, shortenUrl, setLongUrl, shortenedUrl } = props;
+    const { isMobile, longUrl, loading, shortenUrl, setLongUrl } = props;
 
     const handleChange = (e) => {
-        setLongUrl(e.target.value)
-        // if( shortenedUrl.length >=0 && shortenedUrl[shortenedUrl.length-1].longUrl === e.target.value) return;
-        
+        setLongUrl(e.target.value)        
     };
 
     return(

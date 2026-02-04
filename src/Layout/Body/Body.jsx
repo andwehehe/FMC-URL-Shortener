@@ -19,10 +19,9 @@ function Body({ props }) {
     const [ shortenedUrl, setShortenedUrl ] = useState([]);
 
     const shortenUrl = async () => {
-        // if(shortenedUrl[shortenedUrl.length-1].longUrl === longUrl) return;
 
         setShortUrl("");
-        setLoading(false);
+        setLoading(true);
         setError("");
 
         try {
@@ -44,12 +43,12 @@ function Body({ props }) {
             const data = await response.json();
             setShortUrl(data.short_url);
 
-            // if(shortenedUrl.length > 0 && shortenedUrl[shortenedUrl.length-2].longUrl === longUrl)
             setShortenedUrl(prev => {
                 let links = [...prev, {longUrl: longUrl, shortUrl: data.short_url}];
                 if(links.length > 3) {
                     links = links.slice(1);
                 }
+                setLongUrl("");
                 return links;
             });
 
@@ -61,15 +60,25 @@ function Body({ props }) {
         }
     };
 
-    const [ isCopied, setIsCopied ] = useState(false);
-    const copyLink = () => {
-        navigator.clipboard.writeText(shortUrl);
-        setIsCopied(true);
+    const [ isCopied, setIsCopied ] = useState([false, false, false]);
+    
+    const copyLink = (index) => {
+        navigator.clipboard.writeText(shortenedUrl[index].shortUrl);
+
+        setIsCopied(prev =>
+            prev.map((value, i) =>
+                i === index ? true : value
+            )
+        );
 
         setTimeout(() => {
-            setIsCopied(false);
-        }, 5000)
-    }
+            setIsCopied(prev =>
+                prev.map((value, i) =>
+                    i === index ? false : value
+                )
+            );
+        }, 5000);
+    };
 
     const { closeMenu, dialogRef } = props;
     const [ isMobile, setIsMobile ] = useState(window.innerWidth < 953);
@@ -139,22 +148,8 @@ function Body({ props }) {
                     />
                 </div>
 
-                {/* <section className={styles.shortened_url_wrapper}>
-                    <article className={styles.shortened_url}>
-                        <p className={styles.long_url}>{longUrl}</p>
-                        <div className={styles.output_copy_wrapper}>
-                            <p className={styles.short_url}>{shortUrl}</p>
-                            <button 
-                                className={styles.copy_BTN} 
-                                onClick={copyLink}
-                                style={{ backgroundColor: isCopied && "hsl(257, 27%, 26%)" }}
-                            >{isCopied ? "Copied!" : "Copy"}</button>
-                        </div>
-                    </article>
-                </section> */}
-
                 <section className={styles.shortened_url_wrapper}>
-                    {shortenedUrl.map(({ longUrl, shortUrl }) => {
+                    {shortenedUrl.map(({ longUrl, shortUrl }, index) => {
                         return(
                             <article className={styles.shortened_url} key={shortUrl}>
                                 <p className={styles.long_url}>{longUrl}</p>
@@ -162,9 +157,9 @@ function Body({ props }) {
                                     <p className={styles.short_url}>{shortUrl}</p>
                                     <button 
                                         className={styles.copy_BTN} 
-                                        onClick={copyLink}
-                                        style={{ backgroundColor: isCopied && "hsl(257, 27%, 26%)" }}
-                                    >{isCopied ? "Copied!" : "Copy"}</button>
+                                        onClick={() => copyLink(index)}
+                                        style={{ backgroundColor: isCopied[index] && "hsl(257, 27%, 26%)" }}
+                                    >{isCopied[index] ? "Copied!" : "Copy"}</button>
                                 </div>
                             </article>
                         );
